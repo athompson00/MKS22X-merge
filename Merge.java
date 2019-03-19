@@ -11,7 +11,12 @@ public class Merge{
   }
   private static void mergesort(int[]data, int lo, int hi){
     if (lo < hi - 1){
-      int a = (lo + hi) / 2;
+      int a = 0;
+      if ((lo + hi) % 2 == 0){
+        a = (lo + hi) / 2;
+      } else {
+        a = (lo + hi) / 2 + 1;
+      }
       int[] x = Arrays.copyOfRange(data, lo, a);
       int[] y = Arrays.copyOfRange(data, a, hi);
 
@@ -21,23 +26,35 @@ public class Merge{
       int e = 0;
       int f = 0;
       int g = data.length;
+      System.out.println(Arrays.toString(x));
+      System.out.println(Arrays.toString(y));
       while (f < g){
-        if (d == x.length - 1){
-          for (f; f < g; f++){
+        System.out.println("" + g);
+        if (d == x.length && e == y.length){
+          f++;
+        } else if (d == x.length){
+            for (int i = f; i < g; i++){
+              data[f] = y[e];
+              f++;
+              e++;
+            }
+        } else if (e == y.length){
+            for (int i = f; i < g; i++){
+              data[f] = x[d];
+              f++;
+              d++;
+            }
+        } else if (x[d] <= y[e]){
+            data[f] = x[d];
+            d++;
+            f++;
+        } else if (x[d] > y[e]){
             data[f] = y[e];
-          }
-        }
-        if (x[d] >= y[e]){
-          data[f] = x[d];
-          d++;
-          f++;
-        }
-        if (x[d] < y[e]){
-          data[f] = y[e];
-          f++;
-          e++;
+            f++;
+            e++;
         }
       }
+      System.out.println(Arrays.toString(data));
     }
   }
 }
